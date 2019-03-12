@@ -7,7 +7,11 @@
   <title>Document</title>
 </head>
 <body>
-  {{$wisdom := .}}
-  <h1>The meaning of life is: {{$wisdom}}</h1>
+  <ul>
+    {{range $index, $element := .}}
+    <li>{{$index}} - {{$element}}</li>
+    {{end}}
+  </ul>
+
 </body>
 </html>
