@@ -1,39 +1,40 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"os"
 	"path"
-	"text/template"
 )
 
 var tpl *template.Template
 
+type country struct {
+	Name  string
+	Motto string
+}
+
 func init() {
 	caminho, err := os.Getwd()
 
-	if err != nil {
-		log.Fatalln(err)
-	}
+	verifyError(err)
 
 	arquivo := path.Join(caminho, "templates", "index.html")
-
 	tpl = template.Must(template.ParseFiles(arquivo))
 }
 
 func main() {
-	paises := map[string]string{
-		"BRA": "Brazil",
-		"PRT": "Portugal",
-		"AGO": "Angola",
-		"MOZ": "Mozambique",
-		"ARG": "Argentina",
-		"URY": "Uruguay",
-		"PRY": "Paraguay",
+	country := country{
+		Name:  "Brasil",
+		Motto: "Ordem e Progresso",
 	}
 
-	err := tpl.ExecuteTemplate(os.Stdout, "index.html", paises)
+	err := tpl.ExecuteTemplate(os.Stdout, "index.html", country)
 
+	verifyError(err)
+}
+
+func verifyError(err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -7,11 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-  <ul>
-    {{range $simbolo, $pais := .}}
-    <li>{{$pais}} ({{$simbolo}})</li>
-    {{end}}
-  </ul>
-
+  <h1>{{.Name}}</h1>
+  <p>{{.Motto}}</p>
 </body>
 </html>
