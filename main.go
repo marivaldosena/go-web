@@ -7,21 +7,24 @@ import (
 	"text/template"
 )
 
+var tpl *template.Template
+var arquivo string
+var err error
+
+func init() {
+	caminho, err := os.Getwd()
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	arquivo = path.Join(caminho, "templates", "index.html")
+	tpl = template.Must(template.ParseFiles(arquivo))
+}
+
 func main() {
-	cwd, err := os.Getwd()
+	err = tpl.ExecuteTemplate(os.Stdout, "index.html", 42)
 
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	tpl, err := template.ParseFiles(
-		path.Join(cwd, "templates", "index.html"))
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	err = tpl.Execute(os.Stdout, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
